@@ -19,4 +19,6 @@ public interface AccountService {
 
     List<AccountDto> findByBeneficiary(String name);
 
+    AccountWithTransactionListDto find(String number);
+
 }

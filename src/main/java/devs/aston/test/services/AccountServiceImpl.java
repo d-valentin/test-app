@@ -74,6 +74,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public AccountTransactionDto withdraw(WithdrawDto dto) {
         Optional<Account> opt = accountRepository.findByNumber(dto.getNumber());
         throwIfDenyAccess(dto.getNumber(), dto.getPin());
@@ -139,13 +140,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public boolean hasAccess(String number, String pin) {
         Optional<Account> opt = accountRepository.findByNumber(number);
-        System.out.println(opt);
-        System.out.println(number);
 
         if (opt.isPresent()) {
             Account account = opt.get();
-            System.out.println(account.getPin());
-            System.out.println(hashPin(pin));
             return account.getPin().equals(hashPin(pin));
         }
 
@@ -155,6 +152,20 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountDto> findByBeneficiary(String name) {
         return accountMapper.toDto(accountRepository.findByBeneficiaryName(name));
+    }
+
+    @Override
+    public AccountWithTransactionListDto find(String number) {
+        Optional<Account> opt = accountRepository.findByNumber(number);
+
+        System.out.println(opt);
+        if (opt.isPresent()) {
+            Account account = opt.get();
+            AccountWithTransactionListDto dto = accountMapper.toWithTransactionListDto(accountMapper.toDto(account));
+            dto.setTransactions(accountTransactionService.findByAccount(number));
+        }
+
+        throw SimpleException.with(number, Errors.ACCOUNT_BY_NUMBER_NOT_FOUND);
     }
 
     private String generateAccountNumber() {

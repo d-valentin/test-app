@@ -1,6 +1,7 @@
 package devs.aston.test.mappers;
 
 import devs.aston.test.dto.account.AccountDto;
+import devs.aston.test.dto.account.AccountWithTransactionListDto;
 import devs.aston.test.models.Account;
 import org.mapstruct.Mapper;
 
@@ -12,5 +13,7 @@ public interface AccountMapper {
     AccountDto toDto(Account account);
 
     List<AccountDto> toDto(List<Account> accounts);
+
+    AccountWithTransactionListDto toWithTransactionListDto(AccountDto account);
 
 }

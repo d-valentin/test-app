@@ -4,10 +4,7 @@ import devs.aston.test.dto.account.*;
 import devs.aston.test.dto.account_transaction.AccountTransactionDto;
 import devs.aston.test.services.AccountService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
@@ -36,4 +33,8 @@ public class AccountController {
         return accountService.transfer(dto);
     }
 
+    @GetMapping
+    public AccountWithTransactionListDto find(@RequestParam String number) {
+        return accountService.find(number);
+    }
 }

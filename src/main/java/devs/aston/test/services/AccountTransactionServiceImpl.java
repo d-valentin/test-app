@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,5 +33,10 @@ public class AccountTransactionServiceImpl implements AccountTransactionService 
         transaction = repository.save(transaction);
 
         return mapper.toDto(transaction);
+    }
+
+    @Override
+    public List<AccountTransactionDto> findByAccount(String number) {
+        return mapper.toDto(repository.findByAccountNumber(number));
     }
 }

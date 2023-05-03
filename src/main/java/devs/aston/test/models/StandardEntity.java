@@ -3,7 +3,6 @@ package devs.aston.test.models;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -18,7 +17,6 @@ public class StandardEntity {
     private int id;
 
     @CreationTimestamp
-    @Column(updatable = false)
     private Timestamp createdAt;
 
 }

@@ -6,9 +6,12 @@ import devs.aston.test.models.Account;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface AccountTransactionService {
 
     AccountTransactionDto create(Account account, OperationType type, BigDecimal value, Timestamp timestamp);
+
+    List<AccountTransactionDto> findByAccount(String number);
 
 }
