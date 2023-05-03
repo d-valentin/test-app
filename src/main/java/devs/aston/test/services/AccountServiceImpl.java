@@ -57,9 +57,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     @Transactional
     public AccountTransactionDto deposit(DepositDto dto) {
-        System.out.println(dto);
         Optional<Account> opt = accountRepository.findByNumber(dto.getNumber());
-        System.out.println(opt);
         throwIfDenyAccess(dto.getNumber(), dto.getPin());
 
         if (opt.isPresent()) {
@@ -158,7 +156,6 @@ public class AccountServiceImpl implements AccountService {
     public AccountWithTransactionListDto find(String number) {
         Optional<Account> opt = accountRepository.findByNumber(number);
 
-        System.out.println(opt);
         if (opt.isPresent()) {
             Account account = opt.get();
             AccountWithTransactionListDto dto = accountMapper.toWithTransactionListDto(accountMapper.toDto(account));
